@@ -1,6 +1,7 @@
 package com.takeout.controller.admin;
 
 import com.takeout.constant.JwtClaimsConstant;
+import com.takeout.dto.EmployeeDTO;
 import com.takeout.dto.EmployeeLoginDTO;
 import com.takeout.entity.Employee;
 import com.takeout.properties.JwtProperties;
@@ -8,6 +9,9 @@ import com.takeout.result.Result;
 import com.takeout.service.EmployeeService;
 import com.takeout.utils.JwtUtil;
 import com.takeout.vo.EmployeeLoginVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +28,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+@Api(tags = "员工相关接口")
 public class EmployeeController {
 
     @Autowired
@@ -38,6 +43,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登录接口")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
 
@@ -67,8 +73,19 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/logout")
+    @ApiOperation("员工退出接口")
     public Result<String> logout() {
         return Result.success();
     }
 
+    /*
+    * 新增员工
+    * */
+    @PostMapping
+    @ApiOperation("新增员工接口")
+    public Result save(@RequestBody EmployeeDTO employeeDTO){
+        log.info("新增员工，员工数据：{}",employeeDTO);
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
 }
