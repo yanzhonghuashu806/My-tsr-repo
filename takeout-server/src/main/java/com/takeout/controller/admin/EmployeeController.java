@@ -3,8 +3,10 @@ package com.takeout.controller.admin;
 import com.takeout.constant.JwtClaimsConstant;
 import com.takeout.dto.EmployeeDTO;
 import com.takeout.dto.EmployeeLoginDTO;
+import com.takeout.dto.EmployeePageQueryDTO;
 import com.takeout.entity.Employee;
 import com.takeout.properties.JwtProperties;
+import com.takeout.result.PageResult;
 import com.takeout.result.Result;
 import com.takeout.service.EmployeeService;
 import com.takeout.utils.JwtUtil;
@@ -14,10 +16,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,5 +86,16 @@ public class EmployeeController {
         log.info("新增员工，员工数据：{}",employeeDTO);
         employeeService.save(employeeDTO);
         return Result.success();
+    }
+
+    /*
+     * 员工分页查询
+     */
+    @GetMapping("/page")
+    @ApiOperation("员工分页查询接口")
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
+        log.info("员工分页查询，参数为:{}", employeePageQueryDTO);
+        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
     }
 }

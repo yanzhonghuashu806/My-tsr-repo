@@ -1,16 +1,20 @@
 package com.takeout.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.takeout.constant.MessageConstant;
 import com.takeout.constant.PasswordConstant;
 import com.takeout.constant.StatusConstant;
 import com.takeout.context.BaseContext;
 import com.takeout.dto.EmployeeDTO;
 import com.takeout.dto.EmployeeLoginDTO;
+import com.takeout.dto.EmployeePageQueryDTO;
 import com.takeout.entity.Employee;
 import com.takeout.exception.AccountLockedException;
 import com.takeout.exception.AccountNotFoundException;
 import com.takeout.exception.PasswordErrorException;
 import com.takeout.mapper.EmployeeMapper;
+import com.takeout.result.PageResult;
 import com.takeout.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +22,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Properties;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+    @Autowired
+    private Properties pageHelperProperties;
 
     /**
      * 员工登录
@@ -88,6 +96,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         //插入数据
         employeeMapper.insert(employee);
+    }
+
+    /*
+    * 分页查询
+    * */
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 
 }

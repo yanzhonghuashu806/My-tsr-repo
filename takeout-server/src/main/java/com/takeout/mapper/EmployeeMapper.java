@@ -1,5 +1,7 @@
 package com.takeout.mapper;
 
+import com.github.pagehelper.Page;
+import com.takeout.dto.EmployeePageQueryDTO;
 import com.takeout.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +25,9 @@ public interface EmployeeMapper {
             "values " +
             "(#{username}, #{name}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     void insert(Employee employee);
+
+    /*
+    * 分页查询
+    * */
+    Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 }
