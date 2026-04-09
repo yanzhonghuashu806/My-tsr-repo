@@ -1,8 +1,10 @@
 package com.takeout.mapper;
 
 import com.github.pagehelper.Page;
+import com.takeout.annotation.AutoFill;
 import com.takeout.dto.EmployeePageQueryDTO;
 import com.takeout.entity.Employee;
+import com.takeout.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,6 +23,7 @@ public interface EmployeeMapper {
     /*
     * 插入员工数据
     * */
+    @AutoFill(value = OperationType.INSERT)
     @Insert("insert into employee (username, name, password, phone, sex, id_number, status, create_time, update_time, create_user, update_user) " +
             "values " +
             "(#{username}, #{name}, #{password}, #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
@@ -31,6 +34,7 @@ public interface EmployeeMapper {
     * */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
     @Select("select * from employee where id = #{id}")
