@@ -1,9 +1,13 @@
 package com.takeout.mapper;
 
+import com.github.pagehelper.Page;
 import com.takeout.annotation.AutoFill;
+import com.takeout.dto.DishPageQueryDTO;
 import com.takeout.entity.Dish;
 import com.takeout.entity.DishFlavor;
 import com.takeout.enumeration.OperationType;
+import com.takeout.vo.DishVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -27,4 +31,25 @@ public interface DishMapper {
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
 
+    /**
+     * 菜品分页查询
+     * @param dishPageQueryDTO
+     * @return
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 根据主键id查询菜品和对应的口味数据
+     * @param id
+     * @return
+     */
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+    /**
+     * 根据主键id删除菜品数据
+     * @param id
+     */
+    @Delete("delete from dish where id = #{id}")
+    void deleteById(Long id);
 }
