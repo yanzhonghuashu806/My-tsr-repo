@@ -12,6 +12,12 @@ spring:
       url: jdbc:mysql://${takeout.datasource.host}:${takeout.datasource.port}/${takeout.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: ${takeout.datasource.username}
       password: ${takeout.datasource.password}
+  redis:
+    host: ${takeout.redis.host}
+    port: ${takeout.redis.port}
+    password: ${takeout.redis.password}
+    database: ${takeout.redis.database}
+
 
 mybatis:
   #mapper配置文件
