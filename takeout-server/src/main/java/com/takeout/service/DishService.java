@@ -2,10 +2,9 @@ package com.takeout.service;
 
 import com.takeout.dto.DishDTO;
 import com.takeout.dto.DishPageQueryDTO;
+import com.takeout.entity.Dish;
 import com.takeout.result.PageResult;
-import com.takeout.result.Result;
 import com.takeout.vo.DishVO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -35,4 +34,11 @@ public interface DishService {
     * 根据id 修改菜品和口味数据
     * */
     void updateWithFlavor(DishDTO dishDTO);
+
+    /**
+     * 根据分类id查询菜品选项
+     * @param categoryId
+     * @return
+     */
+    List<DishVO> listWithFlavor(Dish categoryId);
 }

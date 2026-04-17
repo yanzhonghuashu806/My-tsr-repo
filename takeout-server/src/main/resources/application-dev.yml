@@ -16,4 +16,7 @@ takeout:
     port: 6379
     password:
     database: 10
+  wechat:
+    appid: ${WECHAT_APPID:}
+    secret: ${WECHAT_SECRET:}
 

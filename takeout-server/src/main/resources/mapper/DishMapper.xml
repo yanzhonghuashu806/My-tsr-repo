@@ -30,6 +30,17 @@
         </where>
         order by d.update_time desc
     </select>
+    <select id="list" resultType="com.takeout.entity.Dish">
+        select * from dish
+        <where>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
 
     <update id="update">
         update dish
