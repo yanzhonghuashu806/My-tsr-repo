@@ -2,6 +2,7 @@ package com.takeout.controller.admin;
 
 import com.takeout.dto.DishDTO;
 import com.takeout.dto.DishPageQueryDTO;
+import com.takeout.entity.Dish;
 import com.takeout.result.PageResult;
 import com.takeout.result.Result;
 import com.takeout.service.DishService;
@@ -84,9 +85,6 @@ public class DishController {
     public Result<DishVO> getById(@PathVariable Long id){
         log.info("根据id查询菜品：{}",id);
         DishVO dishVO = dishService.getByIdWithFlavor(id);
-
-        cleanCache("dish_*");
-
         return Result.success(dishVO);
     }
 
@@ -103,6 +101,34 @@ public class DishController {
         cleanCache("dish_*");
 
         return Result.success();
+    }
+
+    /**
+     * 菜品起售停售
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("菜品起售停售")
+    public Result<String> startOrStop(@PathVariable Integer status, Long id){
+        dishService.startOrStop(status,id);
+
+        cleanCache("dish_*");
+
+        return Result.success();
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据分类id查询菜品")
+    public Result<List<Dish>> list(Long categoryId){
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
     }
 
     /*
