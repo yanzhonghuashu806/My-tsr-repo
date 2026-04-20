@@ -1,6 +1,9 @@
 package com.takeout.service;
 
 import com.takeout.dto.ShoppingCartDTO;
+import com.takeout.entity.ShoppingCart;
+
+import java.util.List;
 
 public interface ShoppingCartService {
 
@@ -9,4 +12,10 @@ public interface ShoppingCartService {
      * @param shoppingCartDTO
      */
     void addShoppingCart(ShoppingCartDTO shoppingCartDTO);
+
+    /**
+     * 查看购物车
+     * @return
+     */
+    List<ShoppingCart> showShoppingCart();
 }
