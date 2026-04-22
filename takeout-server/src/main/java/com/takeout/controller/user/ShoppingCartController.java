@@ -27,7 +27,7 @@ public class ShoppingCartController {
      * @param shoppingCartDTO
      * @return
      */
-    @PutMapping("/add")
+    @PostMapping("/add")
     @ApiOperation("添加购物车")
     public Result add(@RequestBody ShoppingCartDTO shoppingCartDTO){
         log.info("添加购物车：{}", shoppingCartDTO);
