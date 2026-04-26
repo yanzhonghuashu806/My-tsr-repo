@@ -57,3 +57,8 @@ takeout:
   wechat:
     appid: ${takeout.wechat.appid}
     secret: ${takeout.wechat.secret}
+
+  shop:
+    address: ${takeout.shop.address}
+  baidu:
+    ak: ${takeout.baidu.ak}
