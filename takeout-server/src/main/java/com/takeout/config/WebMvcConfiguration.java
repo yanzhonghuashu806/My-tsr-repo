@@ -38,6 +38,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      * 注册自定义拦截器
      *
      * @param registry
+     *
+     * 没登录就不让调用接口，保护系统安全。
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
@@ -56,6 +58,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     /**
      * 通过knife4j生成接口文档
      * @return
+     *
+     * 自动生成一份接口说明书，前端照着调用就行。
      */
     @Bean
     public Docket docket1() {
@@ -96,6 +100,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     /**
      * 设置静态资源映射
      * @param registry
+     *
+     * 打开浏览器能看到接口文档页面，不然访问不了。
      */
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         log.info("开始设置静态资源映射...");
@@ -105,7 +111,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     /*
     * 扩展Spring MVC框架的消息转换器
-    * */
+    *
+    *保证后端返回给前端的数据格式统一、不乱码、不报错。
+     * */
     protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         log.info("扩展消息转换器...");
         //创建一个消息转换器对象
