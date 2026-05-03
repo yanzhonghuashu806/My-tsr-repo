@@ -1,5 +1,6 @@
 package com.takeout.service;
 
+import com.takeout.vo.OrderReportVO;
 import com.takeout.vo.TurnoverReportVO;
 import com.takeout.vo.UserReportVO;
 
@@ -23,4 +24,12 @@ public interface ReportService {
      * @return
      */
     UserReportVO getUserStatistics(LocalDate begin, LocalDate end);
+
+    /**
+     * 统计指定时间区间内的订单数据
+     * @param begin
+     * @param end
+     * @return
+     */
+    OrderReportVO getOrdersStatistics(LocalDate begin, LocalDate end);
 }

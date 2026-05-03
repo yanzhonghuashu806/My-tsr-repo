@@ -2,6 +2,7 @@ package com.takeout.controller.admin;
 
 import com.takeout.result.Result;
 import com.takeout.service.ReportService;
+import com.takeout.vo.OrderReportVO;
 import com.takeout.vo.TurnoverReportVO;
 import com.takeout.vo.UserReportVO;
 import io.swagger.annotations.Api;
@@ -64,7 +65,24 @@ public class ReportController {
         log.info("用户数据统计：{}到{}", begin, end);
         UserReportVO result = reportService.getUserStatistics(begin, end);
         return Result.success(result);
+    }
 
+    /**
+     * 订单数据统计
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/ordersStatistics")
+    @ApiOperation("订单数据统计")
+    public Result<OrderReportVO> ordersStatistics(
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate end){
+        log.info("订单数据统计：{}到{}", begin, end);
+        OrderReportVO result = reportService.getOrdersStatistics(begin, end);
+        return Result.success(result);
     }
 }
 
