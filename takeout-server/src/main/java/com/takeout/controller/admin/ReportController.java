@@ -3,11 +3,13 @@ package com.takeout.controller.admin;
 import com.takeout.result.Result;
 import com.takeout.service.ReportService;
 import com.takeout.vo.OrderReportVO;
+import com.takeout.vo.SalesTop10ReportVO;
 import com.takeout.vo.TurnoverReportVO;
 import com.takeout.vo.UserReportVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,7 @@ public class ReportController {
 
     /**
      * 用户数据统计
+     *
      * @param begin
      * @param end
      * @return
@@ -69,6 +72,7 @@ public class ReportController {
 
     /**
      * 订单数据统计
+     *
      * @param begin
      * @param end
      * @return
@@ -79,10 +83,28 @@ public class ReportController {
             @DateTimeFormat(pattern = "yyyy-MM-dd")
             LocalDate begin,
             @DateTimeFormat(pattern = "yyyy-MM-dd")
-            LocalDate end){
+            LocalDate end) {
         log.info("订单数据统计：{}到{}", begin, end);
         OrderReportVO result = reportService.getOrdersStatistics(begin, end);
         return Result.success(result);
     }
+
+    /**
+     * 销量排名top10
+     * @param begin
+     * @param end
+     * @return
+     */
+    @GetMapping("/top10")
+    @ApiOperation("销量排名top10")
+    public Result<SalesTop10ReportVO> top10(
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate begin,
+            @DateTimeFormat(pattern = "yyyy-MM-dd")
+            LocalDate end){
+        log.info("销量排名top10：{}到{}", begin, end);
+        return Result.success(reportService.getSalesTop10(begin, end));
+    }
+
 }
 

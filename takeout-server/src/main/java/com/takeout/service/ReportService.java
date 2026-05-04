@@ -1,6 +1,7 @@
 package com.takeout.service;
 
 import com.takeout.vo.OrderReportVO;
+import com.takeout.vo.SalesTop10ReportVO;
 import com.takeout.vo.TurnoverReportVO;
 import com.takeout.vo.UserReportVO;
 
@@ -32,4 +33,12 @@ public interface ReportService {
      * @return
      */
     OrderReportVO getOrdersStatistics(LocalDate begin, LocalDate end);
+
+    /**
+     * 统计指定时间区间内的销量排名前十
+     * @param begin
+     * @param end
+     * @return
+     */
+    SalesTop10ReportVO getSalesTop10(LocalDate begin, LocalDate end);
 }
